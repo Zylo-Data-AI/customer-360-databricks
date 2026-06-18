@@ -412,14 +412,31 @@ Soft Skills
 
 ---
 
-## Author
 
-**Raihan Kabir**
-Data Engineering · Machine Learning
+## Project Ownership & Contribution
 
-[![Email](https://img.shields.io/badge/Email-raihank0192%40gmail.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:raihank0192@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Raihan%20Kabir-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raihan-kabir218)
-[![GitHub](https://img.shields.io/badge/GitHub-RaihanKabir277-181717?style=flat&logo=github&logoColor=white)](https://github.com/RaihanKabir277)
+This project was developed as part of the Data Engineering initiatives at Zylo and is maintained within the organization's GitHub repository.
+
+### Lead Contributor
+
+**Raihan Kabir**  
+Associate Data Engineer, Zylo
+
+**Key Contributions**
+- Designed and implemented the end-to-end Medallion Architecture (Bronze → Silver → Gold)
+- Built the Delta Lake data platform on Databricks
+- Developed entity resolution and ID reconciliation framework across 11 source systems
+- Created Customer 360 aggregation models and Gold-layer business datasets
+- Designed engagement scoring, churn risk scoring, and customer segmentation logic
+- Developed the Product Recommendation Engine and AI-ready customer summary datasets
+- Built and configured Databricks AI/BI dashboards and Genie AI integration
+- Implemented data quality validation, governance, and audit tracking mechanisms
+
+### Organization
+
+**Zylo**
+
+Enterprise Data Engineering & Analytics
 
 ---
 
@@ -432,8 +449,9 @@ Data Engineering · Machine Learning
 
 <div align="center">
 
-*Built with SQL, PySpark, Delta Lake and Databricks*
+*Built with SQL, PySpark, Delta Lake and Databricks*  
 *Medallion Architecture · Unity Catalog · AI/BI Dashboard · Genie AI*
 
 </div>
+
 
