@@ -440,10 +440,6 @@ Enterprise Data Engineering & Analytics
 
 ---
 
-## Certifications
-
-- 🏆 **Databricks Accredited Data Engineer Associate** — Databricks Academy (April 2026)
-- 🏆 **Cloudera Technical Expert Accreditation** — Cloudera Partner Network (Feb 2026 – Feb 2028)
 
 ---
 
