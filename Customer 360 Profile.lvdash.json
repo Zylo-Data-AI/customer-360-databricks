@@ -1,0 +1,3572 @@
+{
+  "datasets": [
+    {
+      "name": "a4da08b7",
+      "displayName": "customer_summary",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT\n  customer_id, full_name, city, customer_since_year,\n  credit_score, credit_category,\n  total_balance, savings_balance, checking_balance,\n  total_loan_amount, avg_interest_rate,\n  avg_monthly_spending, total_products, active_cards,\n  mobile_pct, engagement_score,\n  churn_risk_score, churn_risk_tier,\n  customer_value_tier, is_high_value,\n  is_digital_first, is_low_churn_risk,\n  days_since_last_transaction, missed_payment_pct\nFROM customer_360.gold.customer_360",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "full_name",
+            "expr": "source.full_name",
+            "displayName": "Full Name"
+          },
+          {
+            "name": "city",
+            "expr": "source.city",
+            "displayName": "City"
+          },
+          {
+            "name": "customer_since_year",
+            "expr": "source.customer_since_year",
+            "displayName": "Customer Since Year"
+          },
+          {
+            "name": "credit_score",
+            "expr": "source.credit_score",
+            "displayName": "Credit Score"
+          },
+          {
+            "name": "credit_category",
+            "expr": "source.credit_category",
+            "displayName": "Credit Category"
+          },
+          {
+            "name": "total_balance",
+            "expr": "source.total_balance",
+            "displayName": "Total Balance"
+          },
+          {
+            "name": "savings_balance",
+            "expr": "source.savings_balance",
+            "displayName": "Savings Balance"
+          },
+          {
+            "name": "checking_balance",
+            "expr": "source.checking_balance",
+            "displayName": "Checking Balance"
+          },
+          {
+            "name": "total_loan_amount",
+            "expr": "source.total_loan_amount",
+            "displayName": "Total Loan Amount"
+          },
+          {
+            "name": "avg_interest_rate",
+            "expr": "source.avg_interest_rate",
+            "displayName": "Avg Interest Rate"
+          },
+          {
+            "name": "avg_monthly_spending",
+            "expr": "source.avg_monthly_spending",
+            "displayName": "Avg Monthly Spending"
+          },
+          {
+            "name": "total_products",
+            "expr": "source.total_products",
+            "displayName": "Total Products"
+          },
+          {
+            "name": "active_cards",
+            "expr": "source.active_cards",
+            "displayName": "Active Cards"
+          },
+          {
+            "name": "mobile_pct",
+            "expr": "source.mobile_pct",
+            "displayName": "Mobile Pct"
+          },
+          {
+            "name": "engagement_score",
+            "expr": "source.engagement_score",
+            "displayName": "Engagement Score"
+          },
+          {
+            "name": "churn_risk_score",
+            "expr": "source.churn_risk_score",
+            "displayName": "Churn Risk Score"
+          },
+          {
+            "name": "churn_risk_tier",
+            "expr": "source.churn_risk_tier",
+            "displayName": "Churn Risk Tier"
+          },
+          {
+            "name": "customer_value_tier",
+            "expr": "source.customer_value_tier",
+            "displayName": "Customer Value Tier"
+          },
+          {
+            "name": "is_high_value",
+            "expr": "source.is_high_value",
+            "displayName": "Is High Value"
+          },
+          {
+            "name": "is_digital_first",
+            "expr": "source.is_digital_first",
+            "displayName": "Is Digital First"
+          },
+          {
+            "name": "is_low_churn_risk",
+            "expr": "source.is_low_churn_risk",
+            "displayName": "Is Low Churn Risk"
+          },
+          {
+            "name": "days_since_last_transaction",
+            "expr": "source.days_since_last_transaction",
+            "displayName": "Days Since Last Transaction"
+          },
+          {
+            "name": "missed_payment_pct",
+            "expr": "source.missed_payment_pct",
+            "displayName": "Missed Payment Pct"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "c770072d",
+      "displayName": "spending_trend",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT\n  customer_id,\n  year_month,\n  total_spending,\n  total_transactions,\n  avg_transaction_amount\nFROM customer_360.gold.monthly_spending\nORDER BY year_month",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "year_month",
+            "expr": "source.year_month",
+            "displayName": "Year Month"
+          },
+          {
+            "name": "total_spending",
+            "expr": "source.total_spending",
+            "displayName": "Total Spending"
+          },
+          {
+            "name": "total_transactions",
+            "expr": "source.total_transactions",
+            "displayName": "Total Transactions"
+          },
+          {
+            "name": "avg_transaction_amount",
+            "expr": "source.avg_transaction_amount",
+            "displayName": "Avg Transaction Amount"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "593363a3",
+      "displayName": "product_breakdown",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT customer_id, product_type, product_category,\n       amount, product_count, product_status, sort_order\nFROM customer_360.gold.product_holdings\nWHERE amount IS NOT NULL\nORDER BY sort_order",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "product_type",
+            "expr": "source.product_type",
+            "displayName": "Product Type"
+          },
+          {
+            "name": "product_category",
+            "expr": "source.product_category",
+            "displayName": "Product Category"
+          },
+          {
+            "name": "amount",
+            "expr": "source.amount",
+            "displayName": "Amount"
+          },
+          {
+            "name": "product_count",
+            "expr": "source.product_count",
+            "displayName": "Product Count"
+          },
+          {
+            "name": "product_status",
+            "expr": "source.product_status",
+            "displayName": "Product Status"
+          },
+          {
+            "name": "sort_order",
+            "expr": "source.sort_order",
+            "displayName": "Sort Order"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "167078ae",
+      "displayName": "channel_breakdown",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT \n   customer_id,\n   channel,\n   device_category,\n   sessions,\n   session_pct,\n   avg_session_minutes\nFROM customer_360.gold.channel_usage\nORDER BY sessions DESC",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "channel",
+            "expr": "source.channel",
+            "displayName": "Channel"
+          },
+          {
+            "name": "device_category",
+            "expr": "source.device_category",
+            "displayName": "Device Category"
+          },
+          {
+            "name": "sessions",
+            "expr": "source.sessions",
+            "displayName": "Sessions"
+          },
+          {
+            "name": "session_pct",
+            "expr": "source.session_pct",
+            "displayName": "Session Pct"
+          },
+          {
+            "name": "avg_session_minutes",
+            "expr": "source.avg_session_minutes",
+            "displayName": "Avg Session Minutes"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "8b20dd11",
+      "displayName": "churn_trend",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT customer_id, year_month, monthly_churn_risk_score,\n       monthly_miss_rate, missed_payments, total_payments\nFROM customer_360.gold.churn_risk_monthly\nORDER BY year_month",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "year_month",
+            "expr": "source.year_month",
+            "displayName": "Year Month"
+          },
+          {
+            "name": "monthly_churn_risk_score",
+            "expr": "source.monthly_churn_risk_score",
+            "displayName": "Monthly Churn Risk Score"
+          },
+          {
+            "name": "monthly_miss_rate",
+            "expr": "source.monthly_miss_rate",
+            "displayName": "Monthly Miss Rate"
+          },
+          {
+            "name": "missed_payments",
+            "expr": "source.missed_payments",
+            "displayName": "Missed Payments"
+          },
+          {
+            "name": "total_payments",
+            "expr": "source.total_payments",
+            "displayName": "Total Payments"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "0673ca1c",
+      "displayName": "recent_activity",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT\n  customer_id,\n  event_datetime,\n  event_type,\n  event_category,\n  event_description,\n  amount,\n  channel,\n  direction,\n  event_status,\n  CASE\n    WHEN event_date = current_date()               THEN 'Today'\n    WHEN event_date = DATE_SUB(current_date(), 1)  THEN 'Yesterday'\n    WHEN event_date >= DATE_SUB(current_date(), 7) THEN 'This week'\n    ELSE DATE_FORMAT(event_date, 'dd MMM yyyy')\n  END AS when_label\n\nFROM customer_360.gold.activity_feed\n\nORDER BY\n  CASE WHEN amount IS NULL THEN 1 ELSE 0 END ASC, \n  event_datetime DESC",
+        "dimensions": [
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "event_datetime",
+            "expr": "source.event_datetime",
+            "displayName": "Event Datetime"
+          },
+          {
+            "name": "event_type",
+            "expr": "source.event_type",
+            "displayName": "Event Type"
+          },
+          {
+            "name": "event_category",
+            "expr": "source.event_category",
+            "displayName": "Event Category"
+          },
+          {
+            "name": "event_description",
+            "expr": "source.event_description",
+            "displayName": "Event Description"
+          },
+          {
+            "name": "amount",
+            "expr": "source.amount",
+            "displayName": "Amount"
+          },
+          {
+            "name": "channel",
+            "expr": "source.channel",
+            "displayName": "Channel"
+          },
+          {
+            "name": "direction",
+            "expr": "source.direction",
+            "displayName": "Direction"
+          },
+          {
+            "name": "event_status",
+            "expr": "source.event_status",
+            "displayName": "Event Status"
+          },
+          {
+            "name": "when_label",
+            "expr": "source.when_label",
+            "displayName": "When Label"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "b099948c",
+      "displayName": "segment_overview",
+      "queryLines": [
+        "SELECT\n",
+        "  primary_segment,\n",
+        "  COUNT(*)                                     AS total_customers,\n",
+        "  ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS segment_pct,\n",
+        "  ROUND(AVG(total_balance), 2)                 AS avg_balance,\n",
+        "  ROUND(AVG(credit_score), 0)                  AS avg_credit_score,\n",
+        "  ROUND(AVG(engagement_score), 1)              AS avg_engagement,\n",
+        "  ROUND(AVG(churn_risk_score), 1)              AS avg_churn_risk,\n",
+        "  ROUND(AVG(avg_monthly_spending), 2)          AS avg_monthly_spend,\n",
+        "  ROUND(AVG(total_products), 1)                AS avg_products\n",
+        "FROM customer_360.gold.customer_segments\n",
+        "GROUP BY primary_segment\n",
+        "ORDER BY total_customers DESC"
+      ]
+    },
+    {
+      "name": "ee4886f7",
+      "displayName": "segment_distribution",
+      "queryLines": [
+        "SELECT\n",
+        "  primary_segment,\n",
+        "  COUNT(*)                                     AS customers,\n",
+        "  ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS pct,\n",
+        "  ROUND(SUM(total_balance), 2)                 AS total_deposits,\n",
+        "  ROUND(AVG(total_balance), 2)                 AS avg_deposit,\n",
+        "  SUM(CASE WHEN is_affluent         THEN 1 ELSE 0 END) AS affluent_count,\n",
+        "  SUM(CASE WHEN is_mass_market      THEN 1 ELSE 0 END) AS mass_market_count,\n",
+        "  SUM(CASE WHEN is_digital_champion THEN 1 ELSE 0 END) AS digital_champion_count,\n",
+        "  SUM(CASE WHEN is_at_risk          THEN 1 ELSE 0 END) AS at_risk_count\n",
+        "FROM customer_360.gold.customer_segments\n",
+        "GROUP BY primary_segment\n",
+        "ORDER BY customers DESC"
+      ]
+    },
+    {
+      "name": "f58b392f",
+      "displayName": "segment_balance_profile",
+      "queryLines": [
+        "SELECT\n",
+        "  primary_segment,\n",
+        "  ROUND(MIN(total_balance), 2)                 AS min_balance,\n",
+        "  ROUND(MAX(total_balance), 2)                 AS max_balance,\n",
+        "  ROUND(AVG(total_balance), 2)                 AS avg_balance,\n",
+        "  ROUND(PERCENTILE(total_balance, 0.5), 2)     AS median_balance,\n",
+        "  COUNT(*)                                     AS customers\n",
+        "FROM customer_360.gold.customer_segments\n",
+        "GROUP BY primary_segment\n",
+        "ORDER BY avg_balance DESC"
+      ]
+    },
+    {
+      "name": "1c8e73d0",
+      "displayName": "segment_customer_list",
+      "queryLines": [
+        "SELECT\n",
+        "  customer_id,\n",
+        "  full_name,\n",
+        "  city,\n",
+        "  primary_segment,\n",
+        "  credit_score,\n",
+        "  credit_category,\n",
+        "  ROUND(total_balance, 2)                      AS total_balance,\n",
+        "  ROUND(total_loan_amount, 2)                  AS total_loan_amount,\n",
+        "  ROUND(avg_monthly_spending, 2)               AS avg_monthly_spending,\n",
+        "  total_products,\n",
+        "  engagement_score,\n",
+        "  churn_risk_score,\n",
+        "  churn_risk_tier,\n",
+        "  ROUND(mobile_pct, 1)                         AS mobile_pct,\n",
+        "  ROUND(missed_payment_pct, 2)                 AS missed_payment_pct,\n",
+        "  days_since_last_transaction\n",
+        "FROM customer_360.gold.customer_segments\n",
+        "ORDER BY primary_segment, total_balance DESC"
+      ]
+    },
+    {
+      "name": "58325d0d",
+      "displayName": "product_prob_summary",
+      "queryLines": [
+        "SELECT\n",
+        "  'Mortgage'             AS product,\n",
+        "  mortgage_priority      AS priority,\n",
+        "  COUNT(*)               AS customers,\n",
+        "  ROUND(AVG(mortgage_probability), 1) AS avg_probability\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "GROUP BY mortgage_priority\n",
+        "\n",
+        "UNION ALL\n",
+        "\n",
+        "SELECT\n",
+        "  'Wealth Product'       AS product,\n",
+        "  wealth_priority        AS priority,\n",
+        "  COUNT(*)               AS customers,\n",
+        "  ROUND(AVG(wealth_probability), 1) AS avg_probability\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "GROUP BY wealth_priority\n",
+        "\n",
+        "UNION ALL\n",
+        "\n",
+        "SELECT\n",
+        "  'Credit Card Upgrade'  AS product,\n",
+        "  credit_card_priority   AS priority,\n",
+        "  COUNT(*)               AS customers,\n",
+        "  ROUND(AVG(credit_card_upgrade_probability), 1) AS avg_probability\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "GROUP BY credit_card_priority\n",
+        "ORDER BY product, priority"
+      ]
+    },
+    {
+      "name": "cc3e7013",
+      "displayName": "top_recomendation",
+      "queryLines": [
+        "SELECT\n",
+        "  top_recommendation,\n",
+        "  COUNT(*)               AS customers,\n",
+        "  ROUND(AVG(mortgage_probability), 1)              AS avg_mortgage_prob,\n",
+        "  ROUND(AVG(wealth_probability), 1)                AS avg_wealth_prob,\n",
+        "  ROUND(AVG(credit_card_upgrade_probability), 1)   AS avg_cc_prob\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "GROUP BY top_recommendation\n",
+        "ORDER BY customers DESC"
+      ]
+    },
+    {
+      "name": "e8b0ccc9",
+      "displayName": "customer_product_probability",
+      "queryLines": [
+        "SELECT\n",
+        "  customer_id,\n",
+        "  full_name,\n",
+        "  city,\n",
+        "  primary_segment,\n",
+        "  credit_score,\n",
+        "  credit_category,\n",
+        "  ROUND(total_balance, 2)                          AS total_balance,\n",
+        "  ROUND(avg_monthly_spending, 2)                   AS avg_monthly_spending,\n",
+        "  mortgage_probability,\n",
+        "  mortgage_priority,\n",
+        "  wealth_probability,\n",
+        "  wealth_priority,\n",
+        "  credit_card_upgrade_probability,\n",
+        "  credit_card_priority,\n",
+        "  top_recommendation,\n",
+        "  engagement_score,\n",
+        "  churn_risk_score\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "ORDER BY mortgage_probability DESC"
+      ]
+    },
+    {
+      "name": "f5437bbe",
+      "displayName": "product_priority_analysis",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT 'Mortgage' AS product, mortgage_probability AS probability, mortgage_priority AS priority, customer_id\nFROM customer_360.gold.product_recommendations\nWHERE mortgage_probability IS NOT NULL\n\nUNION ALL\n\nSELECT 'Wealth Management' AS product, wealth_probability AS probability, wealth_priority AS priority, customer_id\nFROM customer_360.gold.product_recommendations\nWHERE wealth_probability IS NOT NULL\n\nUNION ALL\n\nSELECT 'Credit Card Upgrade' AS product, credit_card_upgrade_probability AS probability, credit_card_priority AS priority, customer_id\nFROM customer_360.gold.product_recommendations\nWHERE credit_card_upgrade_probability IS NOT NULL",
+        "dimensions": [
+          {
+            "name": "product",
+            "expr": "source.product",
+            "displayName": "Product"
+          },
+          {
+            "name": "probability",
+            "expr": "source.probability",
+            "displayName": "Probability"
+          },
+          {
+            "name": "priority",
+            "expr": "source.priority",
+            "displayName": "Priority"
+          },
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "3fb4d710",
+      "displayName": "customer_all_summary",
+      "queryLines": [
+        "SELECT\n",
+        "  customer_id,\n",
+        "  full_name,\n",
+        "  city,\n",
+        "  credit_score,\n",
+        "  credit_category,\n",
+        "  customer_value_tier,\n",
+        "  churn_risk_tier,\n",
+        "  churn_risk_score,\n",
+        "  engagement_score,\n",
+        "  total_balance,\n",
+        "  total_loan_amount,\n",
+        "  avg_monthly_spending,\n",
+        "  total_products,\n",
+        "  is_high_value,\n",
+        "  is_digital_first,\n",
+        "  is_low_churn_risk,\n",
+        "  customer_summary_text,\n",
+        "  generated_at\n",
+        "FROM customer_360.gold.customer_full_summary\n",
+        "ORDER BY full_name"
+      ]
+    },
+    {
+      "name": "fe8eb1db",
+      "displayName": "customer_recommendations",
+      "queryLines": [
+        "SELECT\n",
+        "  customer_id,\n",
+        "  full_name,\n",
+        "  city,\n",
+        "  primary_segment,\n",
+        "  credit_score,\n",
+        "  credit_category,\n",
+        "  ROUND(total_balance, 2)                        AS total_balance,\n",
+        "  ROUND(avg_monthly_spending, 2)                 AS avg_monthly_spending,\n",
+        "  mortgage_probability,\n",
+        "  mortgage_priority,\n",
+        "  wealth_probability,\n",
+        "  wealth_priority,\n",
+        "  credit_card_upgrade_probability,\n",
+        "  credit_card_priority,\n",
+        "  top_recommendation,\n",
+        "  engagement_score,\n",
+        "  churn_risk_score,\n",
+        "\n",
+        "  CASE\n",
+        "    WHEN churn_risk_score < 30 THEN 'Low'\n",
+        "    WHEN churn_risk_score < 60 THEN 'Medium'\n",
+        "    ELSE                            'High'\n",
+        "  END                                            AS churn_risk_tier,\n",
+        "\n",
+        "  CONCAT(\n",
+        "    '🎯 TOP RECOMMENDATION: ', top_recommendation, '\\n\\n',\n",
+        "    '📞 WHAT TO SAY TO ', UPPER(full_name), ':\\n',\n",
+        "    CASE top_recommendation\n",
+        "      WHEN 'Mortgage' THEN\n",
+        "        CONCAT('\"', full_name, ', based on your excellent savings balance of $',\n",
+        "               FORMAT_NUMBER(total_balance, 0),\n",
+        "               ' and your strong credit profile, you are pre-qualified for our ',\n",
+        "               'home loan program. Would you like to explore our current mortgage rates?\"')\n",
+        "      WHEN 'Wealth Product' THEN\n",
+        "        CONCAT('\"', full_name, ', given your financial strength and investment ',\n",
+        "               'potential, our wealth management team would love to show you how ',\n",
+        "               'your money can work harder. Can we schedule a private consultation?\"')\n",
+        "      ELSE\n",
+        "        CONCAT('\"', full_name, ', as one of our valued customers, you qualify for ',\n",
+        "               'a credit card upgrade with higher limits and premium rewards. ',\n",
+        "               'Would you like to hear more?\"')\n",
+        "    END, '\\n',\n",
+        "    '\\n💼 WHY THIS RECOMMENDATION:\\n',\n",
+        "    '• Mortgage Score     : ', mortgage_probability,\n",
+        "      '/100 (', mortgage_priority, ' priority)\\n',\n",
+        "    '• Wealth Score       : ', wealth_probability,\n",
+        "      '/100 (', wealth_priority, ' priority)\\n',\n",
+        "    '• Card Upgrade Score : ', credit_card_upgrade_probability,\n",
+        "      '/100 (', credit_card_priority, ' priority)\\n',\n",
+        "    '\\n⚡ BANKER ACTION:\\n',\n",
+        "    CASE\n",
+        "      WHEN mortgage_priority = 'High'\n",
+        "      THEN '1. Call within 48 hours — high mortgage conversion probability\\n2. Prepare mortgage rate sheet before calling\\n3. Log call outcome in CRM'\n",
+        "      WHEN wealth_priority = 'High'\n",
+        "      THEN '1. Schedule private wealth consultation this week\\n2. Prepare portfolio performance report\\n3. Invite to next wealth management event'\n",
+        "      WHEN credit_card_priority = 'High'\n",
+        "      THEN '1. Send upgrade offer via preferred channel (mobile/email)\\n2. Follow up in 3 days if no response\\n3. Offer instant approval if called'\n",
+        "      ELSE '1. Maintain relationship — regular quarterly check-in\\n2. Monitor for life events (salary increase, home search)\\n3. Re-evaluate in 90 days'\n",
+        "    END\n",
+        "  )                                              AS banker_action_script,\n",
+        "\n",
+        "  CASE\n",
+        "    WHEN churn_risk_score >= 60 THEN '🚨 HIGH CHURN RISK — Prioritise retention over cross-sell'\n",
+        "    WHEN churn_risk_score >= 30 THEN '⚠️ MEDIUM CHURN RISK — Lead with value, not product push'\n",
+        "    ELSE                             '✅ LOW CHURN RISK — Good time to introduce new product'\n",
+        "  END                                            AS risk_warning\n",
+        "\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "ORDER BY mortgage_probability DESC"
+      ]
+    },
+    {
+      "name": "77f429cb",
+      "displayName": "customer_probability_bars",
+      "queryLines": [
+        "SELECT customer_id, 'Mortgage'           AS product,\n",
+        "       mortgage_probability              AS probability,\n",
+        "       mortgage_priority                 AS priority\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "\n",
+        "UNION ALL\n",
+        "\n",
+        "SELECT customer_id, 'Wealth Product'     AS product,\n",
+        "       wealth_probability                AS probability,\n",
+        "       wealth_priority                   AS priority\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "\n",
+        "UNION ALL\n",
+        "\n",
+        "SELECT customer_id, 'Credit Card Upgrade' AS product,\n",
+        "       credit_card_upgrade_probability    AS probability,\n",
+        "       credit_card_priority               AS priority\n",
+        "FROM customer_360.gold.product_recommendations\n",
+        "ORDER BY customer_id, probability DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "cb8caf0d",
+      "displayName": "Customer_360",
+      "layout": [
+        {
+          "widget": {
+            "name": "search-by-customer-id",
+            "queries": [
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2664e142f90c8a25d8412432e_customer_id",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2917617b78796141c10f6f145_customer_id",
+                "query": {
+                  "datasetName": "c770072d",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2b154176db89a80bb6ba3c6d2_customer_id",
+                "query": {
+                  "datasetName": "593363a3",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2c8871e7f84b11259e8f15078_customer_id",
+                "query": {
+                  "datasetName": "167078ae",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2e07a1fb68aab50c88038cd98_customer_id",
+                "query": {
+                  "datasetName": "8b20dd11",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2f70a1242a39037a802e3ab5d_customer_id",
+                "query": {
+                  "datasetName": "0673ca1c",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Search by Customer ID"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2664e142f90c8a25d8412432e_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2917617b78796141c10f6f145_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2b154176db89a80bb6ba3c6d2_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2c8871e7f84b11259e8f15078_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2e07a1fb68aab50c88038cd98_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad2f70a1242a39037a802e3ab5d_customer_id"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 10,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "total-balance",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "sum(total_balance)",
+                      "expression": "SUM(`total_balance`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Total Balance"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_balance)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  },
+                  "formatTemplate": "${{ @formatted }}"
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total-loan-amount",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "total_loan_amount",
+                      "expression": "`total_loan_amount`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Total Loan Amount"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_loan_amount",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  },
+                  "formatTemplate": "${{ @formatted }}"
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "3303e49d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "credit_score",
+                      "expression": "`credit_score`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Credit Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "credit_score",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "2baabcfe",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "avg_monthly_spending",
+                      "expression": "`avg_monthly_spending`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Credit Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg_monthly_spending",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  },
+                  "formatTemplate": "${{ @formatted }}"
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "18475ee1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "engagement_score",
+                      "expression": "`engagement_score`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Engagement Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "engagement_score",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "7bb54686",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a4da08b7",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "churn_risk_score",
+                      "expression": "`churn_risk_score`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Churn Risk Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "churn_risk_score",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                },
+                "target": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "fontColor"
+                    },
+                    "bold": true
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 1,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "product-holdings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "593363a3",
+                  "fields": [
+                    {
+                      "name": "product_type",
+                      "expression": "`product_type`"
+                    },
+                    {
+                      "name": "sum(amount)",
+                      "expression": "SUM(`amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Product Holdings"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "product_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(amount)",
+                  "displayName": "Total Amount",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "monthly-spending",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c770072d",
+                  "fields": [
+                    {
+                      "name": "year_month",
+                      "expression": "`year_month`"
+                    },
+                    {
+                      "name": "sum(total_spending)",
+                      "expression": "SUM(`total_spending`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "    Monthly Spending "
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "marker": {
+                  "shape": "square"
+                },
+                "linePatterns": [
+                  "solid"
+                ]
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year_month",
+                  "displayName": "Year & Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_spending)",
+                  "displayName": "Total Spemding",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "channel-usage",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "167078ae",
+                  "fields": [
+                    {
+                      "name": "channel",
+                      "expression": "`channel`"
+                    },
+                    {
+                      "name": "avg(session_pct)",
+                      "expression": "AVG(`session_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Channel Usage"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "channel",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(session_pct)",
+                  "displayName": "Session %",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "churn-risk-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8b20dd11",
+                  "fields": [
+                    {
+                      "name": "year_month",
+                      "expression": "`year_month`"
+                    },
+                    {
+                      "name": "sum(monthly_churn_risk_score)",
+                      "expression": "SUM(`monthly_churn_risk_score`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Churn Risk Trend "
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "marker": {
+                  "shape": "square"
+                }
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year_month",
+                  "displayName": "Year & Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(monthly_churn_risk_score)",
+                  "displayName": "Monthly Churn Risk Score",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "activity-feed",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0673ca1c",
+                  "fields": [
+                    {
+                      "name": "when_label",
+                      "expression": "`when_label`"
+                    },
+                    {
+                      "name": "event_description",
+                      "expression": "`event_description`"
+                    },
+                    {
+                      "name": "amount",
+                      "expression": "`amount`"
+                    },
+                    {
+                      "name": "direction",
+                      "expression": "`direction`"
+                    },
+                    {
+                      "name": "channel",
+                      "expression": "`channel`"
+                    },
+                    {
+                      "name": "event_status",
+                      "expression": "`event_status`"
+                    },
+                    {
+                      "name": "event_category",
+                      "expression": "`event_category`"
+                    },
+                    {
+                      "name": "event_type",
+                      "expression": "`event_type`"
+                    },
+                    {
+                      "name": "event_datetime",
+                      "expression": "`event_datetime`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Activity Feed"
+              },
+              "bandedRows": {
+                "enabled": true
+              },
+              "headerStyle": {
+                "backgroundColor": {
+                  "themeColorType": "visualizationColors",
+                  "position": 6
+                }
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "when_label"
+                  },
+                  {
+                    "fieldName": "event_description"
+                  },
+                  {
+                    "fieldName": "amount"
+                  },
+                  {
+                    "fieldName": "direction"
+                  },
+                  {
+                    "fieldName": "channel"
+                  },
+                  {
+                    "fieldName": "event_status"
+                  },
+                  {
+                    "fieldName": "event_category"
+                  },
+                  {
+                    "fieldName": "event_type"
+                  },
+                  {
+                    "fieldName": "event_datetime"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "117357a5",
+      "displayName": "Customer_Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "6c2e0ed4",
+            "multilineTextboxSpec": {
+              "lines": [
+                "### <span style=\"text-align:center;display:block;\">**🤖 Customer 360 AI Assistant**</span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block;\">**Ask any question about any customer in plain English**</span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block;\">[<span style=\"font-size:14px\">**➤ Open AI Assistant in new tab**</span>](https://dbc-56258d33-cafe.cloud.databricks.com/genie/rooms/01f16aedbc5e14098839865fd098ed45?o=7474652114468644)</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "search-customer-by-id-or-name",
+            "queries": [
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad3f2a51b45b2e218cdae3e55f4_customer_id",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Search Customer by ID or Name"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad3f2a51b45b2e218cdae3e55f4_customer_id"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "customer-name",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Customer Name"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "full_name",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "credit-score",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "sum(credit_score)",
+                      "expression": "SUM(`credit_score`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Credit Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(credit_score)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "35e9de70",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "sum(total_balance)",
+                      "expression": "SUM(`total_balance`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Total Balance"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_balance)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "a19fb169",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "sum(engagement_score)",
+                      "expression": "SUM(`engagement_score`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Engagement Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(engagement_score)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "a19ed87f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "sum(churn_risk_score)",
+                      "expression": "SUM(`churn_risk_score`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Churn Risk Score"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(churn_risk_score)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "complete-customer-summary",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3fb4d710",
+                  "fields": [
+                    {
+                      "name": "customer_summary_text",
+                      "expression": "`customer_summary_text`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Complete Customer Summary"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "customer_summary_text"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 12,
+            "height": 10
+          }
+        },
+        {
+          "widget": {
+            "name": "86a40691",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size:18px\">**ℹ️ Type a Customer ID in the search field below.</span><span style=\"font-size:18px\">&#32;&#32;**</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size:18px\">**&#32;To clear and search another customer → click \"Reset all to default\" (top right)**</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "c5b81d23",
+      "displayName": "Customer_Segmentation",
+      "layout": [
+        {
+          "widget": {
+            "name": "affluent-customers",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "sum(total_customers)",
+                      "expression": "SUM(`total_customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`primary_segment` IN ('Affluent')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Affluent Customers"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 1
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "c88bd6be",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "sum(total_customers)",
+                      "expression": "SUM(`total_customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`primary_segment` IN ('Mass Market')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Mass Market"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 4
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "a6032215",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "sum(total_customers)",
+                      "expression": "SUM(`total_customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`primary_segment` IN ('Digital Champion')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Digital Champions"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "9b95f824",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "sum(total_customers)",
+                      "expression": "SUM(`total_customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`primary_segment` IN ('At-Risk')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "At-Risk Customers"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "customer-segment-distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ee4886f7",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "sum(customers)",
+                      "expression": "SUM(`customers`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Customer Segment Distribution"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "primary_segment",
+                  "displayName": "Primary Segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(customers)",
+                  "displayName": "Total Customers",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "primary_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "average-balance-by-segment",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "f58b392f",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "sum(avg_balance)",
+                      "expression": "SUM(`avg_balance`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Average Balance by Segment"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "primary_segment",
+                  "displayName": "Primary Segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_balance)",
+                  "displayName": "Average Balance",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "primary_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "churn-risk-segment",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "sum(avg_churn_risk)",
+                      "expression": "SUM(`avg_churn_risk`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Churn Risk by Segment"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "primary_segment",
+                  "displayName": "Primary Segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_churn_risk)",
+                  "displayName": "Average Churn Risk",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "primary_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "engagement-score-by-segment",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b099948c",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "sum(avg_engagement)",
+                      "expression": "SUM(`avg_engagement`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Engagement Score by Segment"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "primary_segment",
+                  "displayName": "Primary Segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_engagement)",
+                  "displayName": "Average Engagement",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "primary_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "engagement-score-segment-1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1c8e73d0",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "credit_score",
+                      "expression": "`credit_score`"
+                    },
+                    {
+                      "name": "credit_category",
+                      "expression": "`credit_category`"
+                    },
+                    {
+                      "name": "total_balance",
+                      "expression": "`total_balance`"
+                    },
+                    {
+                      "name": "total_loan_amount",
+                      "expression": "`total_loan_amount`"
+                    },
+                    {
+                      "name": "avg_monthly_spending",
+                      "expression": "`avg_monthly_spending`"
+                    },
+                    {
+                      "name": "total_products",
+                      "expression": "`total_products`"
+                    },
+                    {
+                      "name": "engagement_score",
+                      "expression": "`engagement_score`"
+                    },
+                    {
+                      "name": "churn_risk_score",
+                      "expression": "`churn_risk_score`"
+                    },
+                    {
+                      "name": "churn_risk_tier",
+                      "expression": "`churn_risk_tier`"
+                    },
+                    {
+                      "name": "mobile_pct",
+                      "expression": "`mobile_pct`"
+                    },
+                    {
+                      "name": "missed_payment_pct",
+                      "expression": "`missed_payment_pct`"
+                    },
+                    {
+                      "name": "days_since_last_transaction",
+                      "expression": "`days_since_last_transaction`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Customer List by Segment"
+              },
+              "bandedRows": {
+                "enabled": true
+              },
+              "headerStyle": {
+                "backgroundColor": {
+                  "themeColorType": "visualizationColors",
+                  "position": 6
+                }
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "customer_id"
+                  },
+                  {
+                    "fieldName": "full_name"
+                  },
+                  {
+                    "fieldName": "city"
+                  },
+                  {
+                    "fieldName": "primary_segment"
+                  },
+                  {
+                    "fieldName": "credit_score"
+                  },
+                  {
+                    "fieldName": "credit_category"
+                  },
+                  {
+                    "fieldName": "total_balance"
+                  },
+                  {
+                    "fieldName": "total_loan_amount"
+                  },
+                  {
+                    "fieldName": "avg_monthly_spending"
+                  },
+                  {
+                    "fieldName": "total_products"
+                  },
+                  {
+                    "fieldName": "engagement_score"
+                  },
+                  {
+                    "fieldName": "churn_risk_score"
+                  },
+                  {
+                    "fieldName": "churn_risk_tier"
+                  },
+                  {
+                    "fieldName": "mobile_pct"
+                  },
+                  {
+                    "fieldName": "missed_payment_pct"
+                  },
+                  {
+                    "fieldName": "days_since_last_transaction"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 16,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "segment1",
+            "queries": [
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad36656119b858cb42da26ded2f_primary_segment",
+                "query": {
+                  "datasetName": "1c8e73d0",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "primary_segment_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Segment"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "primary_segment",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad36656119b858cb42da26ded2f_primary_segment"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "72d4ffa3",
+      "displayName": "Product_Recommendations",
+      "layout": [
+        {
+          "widget": {
+            "name": "search-customer-id",
+            "queries": [
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad40f761f87b184e40b9b113fb6_customer_id",
+                "query": {
+                  "datasetName": "fe8eb1db",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad423251ec0b79b9f510d5702bd_customer_id",
+                "query": {
+                  "datasetName": "77f429cb",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "customer_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "🔍 Search Customer ID"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad40f761f87b184e40b9b113fb6_customer_id"
+                  },
+                  {
+                    "fieldName": "customer_id",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad423251ec0b79b9f510d5702bd_customer_id"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "product-probability-selected-customer",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "77f429cb",
+                  "fields": [
+                    {
+                      "name": "priority",
+                      "expression": "`priority`"
+                    },
+                    {
+                      "name": "sum(probability)",
+                      "expression": "SUM(`probability`)"
+                    },
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Product Probability for Selected Customer"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(probability)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "priority",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "banker-recommendation-script",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "fe8eb1db",
+                  "fields": [
+                    {
+                      "name": "banker_action_script",
+                      "expression": "`banker_action_script`"
+                    },
+                    {
+                      "name": "risk_warning",
+                      "expression": "`risk_warning`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Banker Recommendation Script"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "banker_action_script"
+                  },
+                  {
+                    "fieldName": "risk_warning"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 1,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "mortgage-candidates",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cc3e7013",
+                  "fields": [
+                    {
+                      "name": "sum(customers)",
+                      "expression": "SUM(`customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`top_recommendation` IN ('Mortgage')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Mortgage Candidates"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "wealth-product-candidates",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cc3e7013",
+                  "fields": [
+                    {
+                      "name": "sum(customers)",
+                      "expression": "SUM(`customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`top_recommendation` IN ('Wealth Product')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Wealth Product Candidates"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 7,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "card-upgrade-candidates",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cc3e7013",
+                  "fields": [
+                    {
+                      "name": "sum(customers)",
+                      "expression": "SUM(`customers`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`top_recommendation` IN ('Credit Card Upgrade')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Card Upgrade Candidates"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(customers)",
+                  "style": {
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 3
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 7,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg-probability-by-product",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "f5437bbe",
+                  "fields": [
+                    {
+                      "name": "priority",
+                      "expression": "`priority`"
+                    },
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    },
+                    {
+                      "name": "avg(probability)",
+                      "expression": "AVG(`probability`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Avg Probability by Product"
+              },
+              "mark": {
+                "layout": "group"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "product",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(probability)",
+                  "scale": {
+                    "type": "quantitative",
+                    "reverse": false
+                  }
+                },
+                "color": {
+                  "fieldName": "priority",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "customer-product-probability-list",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e8b0ccc9",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "credit_score",
+                      "expression": "`credit_score`"
+                    },
+                    {
+                      "name": "credit_category",
+                      "expression": "`credit_category`"
+                    },
+                    {
+                      "name": "total_balance",
+                      "expression": "`total_balance`"
+                    },
+                    {
+                      "name": "avg_monthly_spending",
+                      "expression": "`avg_monthly_spending`"
+                    },
+                    {
+                      "name": "mortgage_probability",
+                      "expression": "`mortgage_probability`"
+                    },
+                    {
+                      "name": "mortgage_priority",
+                      "expression": "`mortgage_priority`"
+                    },
+                    {
+                      "name": "wealth_probability",
+                      "expression": "`wealth_probability`"
+                    },
+                    {
+                      "name": "wealth_priority",
+                      "expression": "`wealth_priority`"
+                    },
+                    {
+                      "name": "credit_card_upgrade_probability",
+                      "expression": "`credit_card_upgrade_probability`"
+                    },
+                    {
+                      "name": "credit_card_priority",
+                      "expression": "`credit_card_priority`"
+                    },
+                    {
+                      "name": "top_recommendation",
+                      "expression": "`top_recommendation`"
+                    },
+                    {
+                      "name": "engagement_score",
+                      "expression": "`engagement_score`"
+                    },
+                    {
+                      "name": "churn_risk_score",
+                      "expression": "`churn_risk_score`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "center",
+                "title": "Customer Product Probability List"
+              },
+              "bandedRows": {
+                "enabled": true
+              },
+              "headerStyle": {
+                "backgroundColor": {
+                  "themeColorType": "visualizationColors",
+                  "position": 6
+                }
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "customer_id"
+                  },
+                  {
+                    "fieldName": "full_name"
+                  },
+                  {
+                    "fieldName": "city"
+                  },
+                  {
+                    "fieldName": "primary_segment"
+                  },
+                  {
+                    "fieldName": "credit_score"
+                  },
+                  {
+                    "fieldName": "credit_category"
+                  },
+                  {
+                    "fieldName": "total_balance"
+                  },
+                  {
+                    "fieldName": "avg_monthly_spending"
+                  },
+                  {
+                    "fieldName": "mortgage_probability"
+                  },
+                  {
+                    "fieldName": "mortgage_priority"
+                  },
+                  {
+                    "fieldName": "wealth_probability"
+                  },
+                  {
+                    "fieldName": "wealth_priority"
+                  },
+                  {
+                    "fieldName": "credit_card_upgrade_probability"
+                  },
+                  {
+                    "fieldName": "credit_card_priority"
+                  },
+                  {
+                    "fieldName": "top_recommendation"
+                  },
+                  {
+                    "fieldName": "engagement_score"
+                  },
+                  {
+                    "fieldName": "churn_risk_score"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 17,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "segment",
+            "queries": [
+              {
+                "name": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad3b3e91aabbe172a42a22dcabe_primary_segment",
+                "query": {
+                  "datasetName": "e8b0ccc9",
+                  "fields": [
+                    {
+                      "name": "primary_segment",
+                      "expression": "`primary_segment`"
+                    },
+                    {
+                      "name": "primary_segment_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Segment"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "primary_segment",
+                    "queryName": "dashboards/01f16ad22517165eba42e48aa2883c97/datasets/01f16ad3b3e91aabbe172a42a22dcabe_primary_segment"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 16,
+            "width": 12,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
