@@ -11,6 +11,10 @@
 
 </div>
 
+## Links
+
+- **Live Demo:** https://customer-360-appgit-rbmqjxoenyrl2ztnewcla6.streamlit.app/
+
 ---
 
 ## What is Customer 360?
